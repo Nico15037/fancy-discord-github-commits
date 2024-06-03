@@ -13,7 +13,7 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           embed: '{
             "title": "{{ commit.title }}",
-            "description": "string( {{ commit.author }} ).slice(500)",
+            "description": "commit.author.slice(500)",
             "url": "{{ commit.url }}",
             "color": 10062971,
             "author": {
