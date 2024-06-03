@@ -84,6 +84,8 @@ for the secret, paste in your webhook
 dude this shit isn't working
 make sure there are no tabs, only spaces
 
+
+
 ------------------------------
 credits
 https://github.com/WolfNT90
@@ -96,4 +98,4 @@ https://github.com/Nico15037
 me bitch
 
 the songs I listened to during this
-definitely don't check some of the commit titles and descriptions
+(do not check some of the commit titles & descriptions)
