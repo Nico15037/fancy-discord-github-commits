@@ -7,8 +7,6 @@ jobs:
   postcommitmessage:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v4
       - name: Discord Commits
         uses: Sniddl/discord-commits@v1.3
         with:
