@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Discord Commits
-        uses: Sniddl/discord-commits@v1.3
+        uses: Sniddl/discord-commits@v1.6
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          embed: '{
+          embed: {
             "title": "{{ commit.title }}",
             "description": "{{ commit.description }}",
             "url": "{{ commit.url }}",
@@ -24,4 +24,4 @@ jobs:
             "timestamp": "{{ commit.timestamp }}",
             "thumbnail": {
             "url": "https://res.cloudinary.com/dkl3jxidk/image/upload/v1717384648/bjz82t6e7t76cixmg9vm.png"
-            }}'
+            }}

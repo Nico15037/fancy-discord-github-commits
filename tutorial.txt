@@ -1,0 +1,35 @@
+the workflow file in the repo:
+uses https://github.com/Sniddl/discord-commits
+
+make sure the on: push: is set to the right branch (master/main/whatever it is)
+
+now for the actual part of it
+- name: Discord Commits
+        uses: Sniddl/discord-commits@v1.6
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          embed: '{}'
+
+"webhook:" uses the github repo's secret that has your discord webhook in it (we'll get to that later)
+"embed:" is the embed. make sure it has the '' around the {}.
+
+for making the embed: https://discohook.org (has a live preview)
+when you've made it go to JSON data editor (at the bottom) and copy the "embeds" section - make sure to remove the "[]" it's enclosed in
+you can run it through https://jsonlint.com/ if you want to prettify it
+
+
+
+
+
+in github:
+go to the repo -> settings ->
+
+
+
+dude this shit isn't working
+make sure there are no tabs, only spaces
+
+
+credits
+https://github.com/WolfNT90
+he showed me this (thank you) made a little tutorial (thank you x2) deleted it cause he's a TWAT (perish) but yk I still re-figured it out and
