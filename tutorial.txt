@@ -65,13 +65,15 @@ commit.description
 commit.url
 commit.author.username
 commit.timestamp
-again, try just putting {{ commit }} to see what you want
+again, try just putting {{ commit }} in the description part of the embed to see what you want
 and {{ commit.author }} for the author variables
 
 ------------------------------
 in github:
-go to the repo -> settings ->
-
+go to the repo -> settings -> secrets and variables -> actions
+click "new repository secret"
+for the name "DISCORD_WEBHOOK"
+for the secret, paste in your webhook
 
 
 dude this shit isn't working
