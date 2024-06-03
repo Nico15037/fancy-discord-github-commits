@@ -10,13 +10,18 @@ now in ".github/workflows", make "discord-webhook.yml"
 -----
 now edit "discord-webhook.yml":
 
-uses https://github.com/Sniddl/discord-commits
+this uses https://github.com/Sniddl/discord-commits
+v3 because any past that make it say "Successful Commit to" BRO SHUT UP GET THE FUCK OUT OF HERE
 
 make sure the on: push: is set to the right branch (master/main/whatever it is)
+it'll be at the top of the file looking something like this:
+on:
+  push:
+    branches: [ main ]
 
 now for the actual part of it
 - name: Discord Commits
-        uses: Sniddl/discord-commits@v1.6
+        uses: Sniddl/discord-commits@v1.3
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           embed: '{}'
@@ -82,4 +87,13 @@ make sure there are no tabs, only spaces
 ------------------------------
 credits
 https://github.com/WolfNT90
-he showed me this (thank you) made a little tutorial (thank you x2) deleted it cause he's a TWAT (perish) but yk I still re-figured it out and
+he showed me this (thank you) made a little tutorial (thank you x2) deleted it cause he's a TWAT (perish) but yk I still re-figured it out and made this tutorial
+
+https://github.com/Sniddl
+they made the workflow action and are gods
+
+https://github.com/Nico15037
+me bitch
+
+the songs I listened to during this
+definitely don't check some of the commit titles and descriptions
