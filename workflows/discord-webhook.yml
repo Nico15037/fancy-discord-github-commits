@@ -1,0 +1,16 @@
+name: Discord Webhook Workflow
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  postcommitmessage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: Discord Commits
+        uses: Sniddl/discord-commits@v1.3
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          embed: '{"title": "{{ commit.title }}","description": "{{ commit.description }}","url": "{{ commit.url }}","color": 10062971,"author": { "name": "{{ commit.author.username }}","url": "https://github.com/{{ commit.author.username }}","icon_url": "https://github.com/{{ commit.author.username }}.png" },"timestamp": "{{ commit.timestamp }}","thumbnail": { "url": "workflow_icon.png", icon_url": "workflow_icon.png"}}'
