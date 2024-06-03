@@ -25,5 +25,5 @@ jobs:
             },
             "timestamp": "{{ commit.timestamp }}",
             "thumbnail": {
-            "url": "https://cdn.discordapp.com/attachments/955992002942623755/955992101995307038/spr_embed_icon.png"
+            "url": workflow_icon.png
             }}'
