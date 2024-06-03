@@ -56,6 +56,7 @@ gamers I gotta be real I don't know where to find a list of these
 I literally brute forced it and made the embed print the entire payload with all variables so I could find what I want
 and that was I think years ago by now so I can't find where I dumped it or even remember how to do it
 I think you just make the desc {{ commit }} {{ github.context.payload }}? but .slice it or something bc it's fucking MASSIVE
+future nico: OK I JUST TRIED AND IDK HOW I DID IT. GOOD LUCK GUYS.
 
 ANYWAYS HERE'S AN EXAMPLE
     {
@@ -81,6 +82,8 @@ for the name "DISCORD_WEBHOOK"
 for the secret, paste in your webhook
 
 
+
+------------------------------
 dude this shit isn't working
 make sure there are no tabs, only spaces
 
