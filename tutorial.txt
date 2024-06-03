@@ -54,14 +54,19 @@ I think you just make the desc {{ commit }} {{ github.context.payload }}? but .s
 
 ANYWAYS HERE'S AN EXAMPLE
     {
-      "title": "oh shit ",
-      "description": "I, {{ commit.author.username }} pushed this at {{ commit.timestamp }}. check out the {{ commit.description }}",
+      "title": "{{ commit.title }}",
+      "description": "{{ commit.author.username }} pushed this at {{ commit.timestamp }}. check out the {{ commit.description }}",
       "color": 15105570
     }
 
 and a list of the ones I know
-
-
+commit.title
+commit.description
+commit.url
+commit.author.username
+commit.timestamp
+again, try just putting {{ commit }} to see what you want
+and {{ commit.author }} for the author variables
 
 ------------------------------
 in github:
