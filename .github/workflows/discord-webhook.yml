@@ -25,5 +25,5 @@ jobs:
             },
             "timestamp": "{{ commit.timestamp }}",
             "thumbnail": {
-            "url": workflow_icon.png
+            "url": "https://github.com/Nico15037/workflow-test/blob/main/workflow_icon.png"
             }}'
