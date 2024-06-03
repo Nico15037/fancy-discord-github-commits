@@ -1,38 +1,62 @@
+3 parts - workflow file, the github website, and making the embed 
+
 ------------------------------
-the workflow file in the repo:
+THE WORKFLOW FILE (in the repo):
 
+    -----
+    in your repo's root folder:
+        make a ".github" folder in your repo's root
+        make a "workflows" folder
+        now in ".github/workflows", make "discord-webhook.yml"
+
+    -----
+    editing "discord-webhook.yml":
+
+        this uses https://github.com/Sniddl/discord-commits
+        v3 because any past that make it say "Successful Commit to" BRO SHUT UP GET THE FUCK OUT OF HERE
+
+        make sure the on: push: is set to the right branch (master/main/whatever it is)
+        it'll be at the top of the file looking something like this:
+        on:
+          push:
+            branches: [ main ]
+
+        now for the actual part of it
+        - name: Discord Commits
+          uses: Sniddl/discord-commits@v1.3
+          with:
+            webhook: ${{ secrets.DISCORD_WEBHOOK }}
+            embed: '{}'
+
+        "webhook:" uses the github repo's secret that has your discord webhook in it (we'll get to that later)
+        "embed:" is the embed. it'll go inside the '{}', and make sure you have the '' around the {} or it won't work
+
+tl;dr just copy paste this and throw in your embed
 -----
-in your repo's root folder:
-make a ".github" folder in your repo's root
-make a "workflows" folder
-now in ".github/workflows", make "discord-webhook.yml"
 
------
-now edit "discord-webhook.yml":
-
-this uses https://github.com/Sniddl/discord-commits
-v3 because any past that make it say "Successful Commit to" BRO SHUT UP GET THE FUCK OUT OF HERE
-
-make sure the on: push: is set to the right branch (master/main/whatever it is)
-it'll be at the top of the file looking something like this:
+name: Discord Webhook Workflow
 on:
   push:
     branches: [ main ]
 
-now for the actual part of it
-- name: Discord Commits
+jobs:
+  postcommitmessage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord Commits
         uses: Sniddl/discord-commits@v1.3
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          embed: '{}'
+          embed: '{
+            "title": "{{ commit.title }}",
+            "description": "{{ commit.description }}",
+            "color": 10062971
+            }'
 
-"webhook:" uses the github repo's secret that has your discord webhook in it (we'll get to that later)
-"embed:" is the embed. it'll go inside the '{}', and make sure you have the '' around the {} or it won't work
-
-
+-----
 
 ------------------------------
-for making the embed:
+MAKING THE EMBED:
 
 https://discohook.org (has a live preview)
 when you've made it, go to JSON data editor (at the bottom) and copy the "embeds" section
@@ -74,25 +98,40 @@ commit.timestamp
 again, try just putting {{ commit }} in the description part of the embed to see what you want
 and {{ commit.author }} for the author variables
 
+unfortunately idk how to change the webhook's icon (what looks like the message "sender") to something custom
+I think you'd have to mess with the actual github action's code (https://github.com/Sniddl/discord-commits)
+
+
+
 ------------------------------
-in github:
+THE GITHUB WEBSITE:
+
 go to the repo -> settings -> secrets and variables -> actions
 click "new repository secret"
 for the name "DISCORD_WEBHOOK"
 for the secret, paste in your webhook
 
+yeah that's it
 
 
 ------------------------------
-dude this shit isn't working
+DUDE THIS SHIT ISN'T WORKING:
+
 make sure there are no tabs, only spaces
+check your embed in jsonlint.com
+make sure you made the webhook in your discord server
 
-
+or just suffer and restart this tutorial
 
 ------------------------------
-credits
+CREDITS:
+
 https://github.com/WolfNT90
-he showed me this (thank you) made a little tutorial (thank you x2) deleted it cause he's a TWAT (perish) but yk I still re-figured it out and made this tutorial
+he showed me this (thank you x1)
+made a little tutorial (thank you x2)
+deleted it the server it was in (unfortunate)
+refused to resend it if he still had it cause he's a TWAT (perish)
+but yk I still re-figured it out and made this tutorial (so legally thank you x3)
 
 https://github.com/Sniddl
 they made the workflow action and are gods
@@ -100,5 +139,5 @@ they made the workflow action and are gods
 https://github.com/Nico15037
 me bitch
 
-the songs I listened to during this
-(do not check some of the commit titles & descriptions)
+shoutouts to the songs I listened to during this
+(they are why the commits are. interesting.)
