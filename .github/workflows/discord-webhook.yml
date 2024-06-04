@@ -15,7 +15,7 @@ jobs:
             "title": "{{ commit.title }}",
             "description": "{{ commit.description }}",
             "url": "{{ commit.url }}",
-            "color": 10062971,
+            "color": 12229743,
             "author": {
               "name": "{{ commit.author.username }}",
               "url": "https://github.com/{{ commit.author.username }}",
