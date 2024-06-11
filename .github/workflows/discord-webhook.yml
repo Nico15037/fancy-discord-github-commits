@@ -23,5 +23,5 @@ jobs:
             },
             "timestamp": "{{ commit.timestamp }}",
             "thumbnail": {
-            "url": ${{ secrets.EMBED_ICON }}
+            "url": "${{ secrets.EMBED_ICON }}"
             }}'
