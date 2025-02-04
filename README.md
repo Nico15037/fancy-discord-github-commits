@@ -2,6 +2,11 @@ this is tutorial on how to make your commit messages all fancy in discord when u
 
 if you need help or have improvements, hmu at `isosaltset` on discord
 
+TL;DR:
+make a discord webhook for the channel you want updates in
+copy the `.github/workflow` folder into the root folder of your repo
+anything that says "secret" make a github secret for
+finished 2easy youwin
 
 4 steps - discord, github.com, making the embed, and the workflow file
 
@@ -40,7 +45,7 @@ if you need help or have improvements, hmu at `isosaltset` on discord
 ------------------------------
 3. MAKING THE EMBED:
 
-  -----
+
   the discord part:
     https://discohook.org (has a live preview)
     when you've made it, go to JSON data editor (at the bottom) and copy the "embeds" section
@@ -57,7 +62,7 @@ if you need help or have improvements, hmu at `isosaltset` on discord
 
     anyways you can run it through https://jsonlint.com if you want to prettify it
 
-  -----
+
   customize the embed based on the commit (the cool part):
 
     LIST OF VARIABLES (well the ones I know at least)
@@ -67,7 +72,7 @@ if you need help or have improvements, hmu at `isosaltset` on discord
       commit.author.username
       commit.timestamp
     
-  -----
+
   example of how to use them
     {
       "title": "{{ commit.title }}",
@@ -78,7 +83,7 @@ if you need help or have improvements, hmu at `isosaltset` on discord
   //the (painful) end
 
   -----
-  CAN SKIP - side notes (aka reasons why I cry at night)
+  CAN SKIP - side notes/reasons why I cry at night
 
     • gamers I gotta be real I don't know where to find an actual list of these
     I literally brute forced it and made the embed print the entire payload with all variables so I could find what I want
