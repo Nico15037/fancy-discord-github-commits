@@ -19,7 +19,7 @@ jobs:
             "author": {
               "name": "{{ commit.author.username }}",
               "url": "https://github.com/{{ commit.author.username }}",
-              "icon_url": "https://github.com/{{ commit.author.username }}.png"
+              "icon_url": "https://avatars.githubusercontent.com/u/40710958?v=4"
             },
             "timestamp": "{{ commit.timestamp }}",
             "thumbnail": {
