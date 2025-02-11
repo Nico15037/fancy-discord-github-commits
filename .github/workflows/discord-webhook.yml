@@ -11,8 +11,9 @@ jobs:
         uses: Sniddl/discord-commits@v1.6
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message: ""
+          message: "has a message"
           embed: '{
+            "message": "I want you to hear",
             "title": "{{ commit.title }}",
             "description": "{{ commit.description }}",
             "url": "{{ commit.url }}",
