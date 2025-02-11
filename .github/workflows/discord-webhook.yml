@@ -8,11 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Discord Commits
-        uses: Sniddl/discord-commits@v1.6
+        uses: Sniddl/discord-commits@v1.3
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message: " "
-          avatar_url: "https://cdn.discordapp.com/avatars/288088083675742208/062edc730ae517fc23b6823ef3f3b6cb"
           embed: '{
             "title": "{{ commit.title }}",
             "description": "{{ commit.description }}",
