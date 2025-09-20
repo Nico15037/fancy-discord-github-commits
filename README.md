@@ -6,15 +6,13 @@
 
 </div>
 
-### Ever thought the basic Github webhook in discord is lame?
+### Ever thought the basic Github webhook in Discord is lame?
 ![dreadfully boring picture of a mega-lame commit message](ignore-this/lamemsg.png)  
-After around 50 characters, it shortens the rest of the commit description to `...`  
-Nothing about it can be customized. Even your webhook settings are overwritten!  
-BUT IT DON'T GOTTA BE LIKE THAT  
+### After around 50 characters, it shortens the rest of the commit description to `...` <br> Nothing about it can be customized. Even your webhook settings in Discord are overwritten!
+### BUT IT DON'T GOTTA BE LIKE THAT  
 ![insanely beautiful image of a glorious commit message](ignore-this/coolmsg.png)  
-Make your commits actually nice to look at with this tutorial!
+## Make your commits actually nice to look at with this tutorial!
 
-If you need help or have improvements, hmu at `@nico15037` on discord
 
 1. [Discord Setup](#discord-setup)
 2. [Github Setup](#github-setup)
@@ -28,7 +26,7 @@ TL;DR:
 1. Make a discord webhook for the channel you want updates in
 2. Copy this repo's `.github/workflow` folder into the root folder of your repo
 3. Anything that says "secrets" make a github secret for
-4. finished 2easy youwin
+4. finished 2easy uwin
 
 ------------------------------
 # Discord Setup
@@ -46,7 +44,7 @@ TL;DR:
 3. For the `Name`, put `DISCORD_WEBHOOK`
 4. For the `Secret`, paste in your webhook URL
 5. Click `Add secret`  
-You should now see it in your list, like the example below  
+You should now see it in your list, like the example below:  
 ![Screenshot of repository secrets table in Github](<ignore-this/repository secret example.png>)
 
 > [!TIP]
@@ -80,7 +78,7 @@ Make sure to click `Prettify` (if it isn't automatically done for you)
 > [!NOTE]
 The end-result color code is not a normal hex code (even if your editor showed otherwise!)  
 This is because JSON does not support hexadecimal, so it has to be stored as a decimal  
-\- which is to say you may need to convert it to decimal if you're manually editing your embed.
+\- which is to say you may need to convert it to decimal if you're directly editing the raw embed.
 
 ## Github Variables
 ###### Customizing the embed based on the commit (the cool part)
@@ -137,7 +135,7 @@ jobs:
 - `embed` - Your embed. Make sure you have the apostrophes `' '` around the braces `{ }` or it won't work. [See example here](.github/workflows/discord-webhook.yml)
 
 I recommend just copying the [file from this repository](.github/workflows/discord-webhook.yml) and editing that.  
-By default, it uses the "improved" embed from the [image](#ever-thought-the-basic-github-webhook-in-discord-is-lame) at beginning of this guide.
+By default, it uses the "improved" embed from the [image](#ever-thought-the-basic-github-webhook-in-discord-is-lame) at beginning of this tutorial.
 
 ------------------------------
 # Troubleshooting
@@ -149,7 +147,9 @@ By default, it uses the "improved" embed from the [image](#ever-thought-the-basi
 - Make sure the github secret has the right webhook URL  
 Unfortunately you can't actually see what it previously was, so just paste it in again and click `Update secret`
 - Make sure the `on: push: branches: [branch_name]` is set to the right branch (master/main/whatever it is for you)
-
+- Check the embed has the right color format (decimal, not hex)
+- Check the embed is wrapped in apostrophes `' '`, like so: `embed: '{ }'`  
+Compare your `discord-webhook.yml` against the [one in this repository](.github/workflows/discord-webhook.yml)  
 If all else fails, restart this tutorial from the top ¯\\(o_o)/¯
 
 ------------------------------
@@ -167,9 +167,6 @@ this repo I made is basically just an in-depth tutorial for every step of actual
 https://github.com/Nico15037  
 holy shit that's me
 
-shoutouts to the songs I listened to during this  
-(they are why the commits are so great and descriptive)
-
 ------------------------------
 # EXTRA INFO/CRIES FOR HELP
 
@@ -184,8 +181,8 @@ future nico: OK I JUST TRIED THAT AND YEAH NO IDK HOW I DID IT. GOOD LUCK GUYS.
 
 ### webhook "user profile"
 These all DO matter and are basically the "profile" of the "person" posting  
-and unfortunately I can't find a way to just do it in the workflow file  
-(like how the lame default github webhook forcefully does it)
+and unfortunately I can't find a way to just do it in the workflow file so everything's in one place  
+(like how the lame default github webhook presumably does it)
 
 ### embed thumbnail
 I tried to see if there was a way to use a file in the repo for the embed thumbnail  
@@ -195,4 +192,4 @@ cloudinary tip make sure to turn off `Include the version number in the delivery
 
 ### using a newer version
 This uses [Sniddl/discord-commits@v1.3](https://github.com/Sniddl/discord-commits/releases/tag/v1.3)  
-because any versions past that make it add "Successful Commit to". which is annoying. dunno how to turn it off.
+because any versions past that make it add "Successful Commit to `user/repository-name`" and I don't how to turn it off
