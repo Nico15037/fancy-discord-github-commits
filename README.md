@@ -1,189 +1,121 @@
-this is tutorial on how to make your commit messages all fancy in discord when using webhooks (someday I will upload images)
+<div align="center">
 
-if you need help or have improvements, hmu at `isosaltset` on discord
+![image](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
+![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![image](https://img.shields.io/badge/Github%20Actions-282a2e?style=for-the-badge&logo=githubactions&logoColor=367cfe)
+
+</div>
+
+### Ever thought the basic Github webhook in discord is lame?
+![dreadfully boring picture of a mega-lame commit message](ignore-this/lamemsg.png)  
+After around 50 characters, it shortens the rest of the commit description to `...`  
+Nothing about it can be customized. Even your webhook settings are overwritten!  
+BUT IT DON'T GOTTA BE LIKE THAT  
+![insanely beautiful image of a glorious commit message](ignore-this/coolmsg.png)  
+Make your commits actually nice to look at with this tutorial!
+
+If you need help or have improvements, hmu at `@nico15037` on discord
+
+1. [Discord Setup](#discord-setup)
+2. [Github Setup](#github-setup)
+3. [Making the Embed](#making-the-embed)
+4. [Workflow File](#workflow-file)
+- [Troubleshooting](#troubleshooting)
+- [Credits](#credits)
+- [Extra details + Ways you can help contribute](#extra-infocries-for-help)
 
 TL;DR:
-make a discord webhook for the channel you want updates in
-copy the `.github/workflow` folder into the root folder of your repo
-anything that says "secret" make a github secret for
-finished 2easy youwin
-
-4 steps - discord, github.com, making the embed, and the workflow file
+1. Make a discord webhook for the channel you want updates in
+2. Copy this repo's `.github/workflow` folder into the root folder of your repo
+3. Anything that says "secrets" make a github secret for
+4. finished 2easy youwin
 
 ------------------------------
-1. DISCORD:
+# Discord Setup
 
-  go to server settings -> integrations -> webhooks
-  click new webhook
-  edit the picture, name, and channel (where it'll actually send the embed)
-
-  //finished
-
-  these all DO matter and are basically the "profile" of the person posting
-  and unfortunately I can't find a way to just do it in the workflow file
-  (like how the LAME default github webhook forcefully does it)
-  hmu if you do find a way tho
-
-
+1. Server Settings -> Integrations -> Webhooks
+2. Click `New Webhook`
+3. Edit the picture, name, and choose the channel where it'll send the embed - this what will show up in discord as the ["user"](#webhook-user-profile)
+4. Click `Copy Webhook URL` - you'll need this for the next part
 
 ------------------------------
-2. GITHUB.COM:
+# Github Setup
 
-  https://github.com
+1. Your repo -> Settings -> Secrets and variables -> Actions
+2. Click `New repository secret`
+3. For the `Name`, put `DISCORD_WEBHOOK`
+4. For the `Secret`, paste in your webhook URL
+5. Click `Add secret`  
+You should now see it in your list, like the example below  
+![Screenshot of repository secrets table in Github](<ignore-this/repository secret example.png>)
 
-  go to your repo -> settings -> secrets and variables -> actions
-  click "new repository secret"
-  for the name "DISCORD_WEBHOOK"
-  for the secret, paste in your webhook
-
-  you can ALSO make the webhook color and image link into a secret
-
-  //yeah that's it
-
-
-
-------------------------------
-3. MAKING THE EMBED:
-
-
-  the discord part:
-    https://discohook.org (has a live preview)
-    when you've made it, go to JSON data editor (at the bottom) and copy the "embeds" section
-    and make sure to remove the "[]" it's enclosed in
-
-    here's an example of what you should have:
-      {
-        "title": "oh shit",
-        "description": "fuck",
-        "color": 15105570
-      }
-
-    "wtf is that color code format" discord uses ANSI color codes because they hate us
-
-    anyways you can run it through https://jsonlint.com if you want to prettify it
-
-
-  customize the embed based on the commit (the cool part):
-
-    LIST OF VARIABLES (well the ones I know at least)
-      commit.title
-      commit.description
-      commit.url
-      commit.author.username
-      commit.timestamp
-    
-
-  example of how to use them
-    {
-      "title": "{{ commit.title }}",
-      "description": "{{ commit.author.username }} pushed this at {{ commit.timestamp }}. check out how he {{ commit.description }}",
-      "color": 15105570
-    }
-
-  //the (painful) end
-
-  -----
-  CAN SKIP - side notes/reasons why I cry at night
-
-    • gamers I gotta be real I don't know where to find an actual list of these
-    I literally brute forced it and made the embed print the entire payload with all variables so I could find what I want
-    and that was I think years ago by now so I can't find where I dumped it or even remember how to do it
-    I think you just make the desc {{ commit }} {{ github.context.payload }}? but .slice it or something bc it's fucking MASSIVE
-    future nico: OK I JUST TRIED AND IDK HOW I DID IT. GOOD LUCK GUYS.
-
-    • unfortunately idk how to change the webhook's icon (what looks like the message "sender") to something custom
-    I think you'd have to mess with the actual github action's code (https://github.com/Sniddl/discord-commits)
-
-    • I tried to see if there was a way to use a file in the repo for the embed thumbnail
-    couldn't figure it out, so personally I just use https://cloudinary.com as the image host for the thumbnail
-    if anyone DOES figure it out hmu PLEASE
-
-
+> [!TIP]
+You can also make the webhook color and image link [(I recommend using a CDN)](#embed-thumbnail) into a secret!  
+Doing this means you can copy-paste the same `discord-webhook.yml` file everywhere, and all "settings" will contained inside each individual repository's secrets. Or you can stick to keeping those inside the workflow file.  
+Up to personal preference on how you wanna manage things!
 
 ------------------------------
-THE WORKFLOW FILE (in the repo):
+# Making the Embed
+- [Discord Variables](#discord-variables)
+- [Github Variables](#github-variables)
 
-    -----
-    in your repo's root folder:
-        make a ".github" folder in your repo's root
-        make a "workflows" folder
-        now in ".github/workflows", make "discord-webhook.yml"
+## Discord Variables
+1. Use this [embed maker](https://discohook.org) or whatever you prefer  
+↓ If using the embed maker ↓
+2. Go to `JSON Data Editor` at the bottom
+3. Go to the `"embeds"` section, and copy the contents inside the brackets `[ ]`
 
-    -----
-    editing "discord-webhook.yml":
+Here's an example of what you should have:
+```json
+{
+  "title": "titleful",
+  "description": "descriptive",
+  "color": 16766720
+}
+```
 
-        this uses https://github.com/Sniddl/discord-commits
-        v3 because any past that make it say "Successful Commit to" BRO SHUT UP GET THE FUCK OUT OF HERE
+If you want it to be a bit more human-readable like the above example, run it through [JSONLint](https://jsonlint.com)  
+Make sure to click `Prettify` (if it isn't automatically done for you)
 
-        make sure the on: push: is set to the right branch (master/main/whatever it is)
-        it'll be at the top of the file looking something like this:
-        //file begin
+> [!NOTE]
+The end-result color code is not a normal hex code (even if your editor showed otherwise!)  
+This is because JSON does not support hexadecimal, so it has to be stored as a decimal  
+\- which is to say you may need to convert it to decimal if you're manually editing your embed.
 
-        name: Discord Webhook Workflow
-        on:
-          push:
-            branches: [ main ]
+## Github Variables
+###### Customizing the embed based on the commit (the cool part)
 
-        jobs:
-          postcommitmessage:
-            runs-on: ubuntu-latest
-            steps:
-              - name: Discord Commits
-                uses: Sniddl/discord-commits@v1.3
-                with:
-                  webhook: ${{ secrets.DISCORD_WEBHOOK }}
-                  embed: '{}'
+List of variables (well, at least [the ones I know of](#more-variables)):
+```yaml
+commit.url
+commit.title
+commit.description
+commit.timestamp
+commit.author.name
+commit.author.username
+```
 
-        //file end
-
-        "webhook:" uses the github repo's secret that has your discord webhook in it
-        "embed:" is the embed. it'll go inside the '{}', and make sure you have the '' around the {} or it won't work
-
-  //mission complete
-
-tl;dr just scroll to the bottom, copy paste that and throw in your embed
-
-
-
-------------------------------
-DUDE THIS SHIT ISN'T WORKING:
-
-  • make sure there are no tabs, only spaces (.yaml files are whitespace-sensitive and don't allow tabs)
-  • check your embed in jsonlint.com
-  • make sure you made the webhook in your discord server
-  • copy paste my example and just edit that it'll be easier I swear
-
-  or just suffer and restart this tutorial from the top
-
-
+Example of how to use them:
+```yaml
+{
+  "title": "{{ commit.title }}",
+  "description": "{{ commit.author.username }} pushed this at {{ commit.timestamp }}. Check out how they {{ commit.description }}",
+  "color": 16766720
+}
+```
 
 ------------------------------
-CREDITS:
+# Workflow File
 
-  https://github.com/WolfNT90
-  he showed me this (thank you x1)
-  made a little tutorial (thank you x2)
-  deleted it the server it was in (unfortunate)
-  refused to resend it if he still had it cause he's a TWAT (perish)
-  but yk I still re-figured it out and made this tutorial (so legally thank you x3)
+1. Make a `.github` folder in your repository's root folder
+2. Make a `workflows` folder inside `.github`
+3. Now in `.github/workflows`, make a `discord-webhook.yml` file
 
-  https://github.com/Sniddlr
-  they made the workflow action and are gods
+## Editing `discord-webhook.yml`
 
-  https://github.com/Nico15037
-  me bitch
+Paste this in:
 
-  shoutouts to the songs I listened to during this
-  (they are why the commits are. interesting.)
-
-
-
-------------------------------
-WHAT I USE (NOT SPONSORED)
-(BUT DEFINITELY NICO-APPROVED)
-
-JUST COPY PASTE THIS INTO YOUR REPO'S discord-webhook.yml FILE
-
+```yaml
 name: Discord Webhook Workflow
 on:
   push:
@@ -197,17 +129,70 @@ jobs:
         uses: Sniddl/discord-commits@v1.3
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          embed: '{
-            "title": "{{ commit.title }}",
-            "description": "{{ commit.description }}",
-            "url": "{{ commit.url }}",
-            "color": 12229743,
-            "author": {
-              "name": "{{ commit.author.username }}",
-              "url": "https://github.com/{{ commit.author.username }}",
-              "icon_url": "https://github.com/{{ commit.author.username }}.png"
-            },
-            "timestamp": "{{ commit.timestamp }}",
-            "thumbnail": {
-            "url": "https://LINK TO YOUR IMAGE HERE.COM/WHATEVER.png"
-            }}'
+          embed: '{}'
+```
+
+- `branches` - Lists out the branches that will trigger a discord message sending when a commit is pushed to one of them
+- `webhook` - Uses the github repo's secret that has your discord webhook in it
+- `embed` - Your embed. Make sure you have the apostrophes `' '` around the braces `{ }` or it won't work. [See example here](.github/workflows/discord-webhook.yml)
+
+I recommend just copying the [file from this repository](.github/workflows/discord-webhook.yml) and editing that.  
+By default, it uses the "improved" embed from the [image](#ever-thought-the-basic-github-webhook-in-discord-is-lame) at beginning of this guide.
+
+------------------------------
+# Troubleshooting
+###### aka oh my god what the fuck did I do wrong
+
+- In your `discord-webhook.yml` file, make sure there are no tabs, only spaces  
+.yaml files are whitespace-sensitive and don't allow tabs
+- Paste your embed in [JSONLint](https://jsonlint.com) and click `Validate JSON`
+- Make sure the github secret has the right webhook URL  
+Unfortunately you can't actually see what it previously was, so just paste it in again and click `Update secret`
+- Make sure the `on: push: branches: [branch_name]` is set to the right branch (master/main/whatever it is for you)
+
+If all else fails, restart this tutorial from the top ¯\\(o_o)/¯
+
+------------------------------
+# Credits
+
+https://github.com/WolfNT90  
+he showed me this and made a little tutorial (thank you)  
+deleted it the server it was in (unfortunate)    
+but hey I still refigured it out and made this tutorial (yippee)
+
+https://github.com/Sniddl + everyone who worked on this  
+they actually made the workflow action  
+this repo I made is basically just an in-depth tutorial for every step of actually using it
+
+https://github.com/Nico15037  
+holy shit that's me
+
+shoutouts to the songs I listened to during this  
+(they are why the commits are so great and descriptive)
+
+------------------------------
+# EXTRA INFO/CRIES FOR HELP
+
+If you know how to help with any of these, make a pull request or reach out to me at [@nico15037](https://discord.com/users/288088083675742208) on discord!
+
+### more variables
+gamers I gotta be real with you I don't know where to find an actual list of these  
+I literally brute forced it and made the embed print the entire payload with all variables so I could find what I want  
+and that was I think years ago by now so I can't find where I dumped it or even remember how to do it  
+I think you just make the desc {{ commit }} {{ github.context.payload }}? but .slice it or something bc it's fucking MASSIVE  
+future nico: OK I JUST TRIED THAT AND YEAH NO IDK HOW I DID IT. GOOD LUCK GUYS.
+
+### webhook "user profile"
+These all DO matter and are basically the "profile" of the "person" posting  
+and unfortunately I can't find a way to just do it in the workflow file  
+(like how the lame default github webhook forcefully does it)
+
+### embed thumbnail
+I tried to see if there was a way to use a file in the repo for the embed thumbnail  
+if anyone DOES figure it out hmu PLEASE  
+I ended up just using [Cloudinary](https://cloudinary.com) as my image host cause it's free  
+cloudinary tip make sure to turn off `Include the version number in the delivery URL` when copying the URL so you can always update it without breaking your commit messages in discord
+
+### using a newer version
+This uses [Sniddl/discord-commits@v1.3](https://github.com/Sniddl/discord-commits/releases/tag/v1.3)  
+because any versions past that make it add "Successful Commit to". which is annoying. dunno how to turn it off.
