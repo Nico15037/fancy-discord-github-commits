@@ -5,42 +5,16 @@ on:
     branches: [ main ]
 
 jobs:
-  send-commit-webhook:
+  test-webhook:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Split commit message safely
-        id: split_commit
-        run: |
-          # Get full commit message
-          MESSAGE="${GITHUB_EVENT_HEAD_COMMIT_MESSAGE}"
-          
-          # Extract first line as title
-          TITLE=$(echo "$MESSAGE" | head -n1)
-          
-          # Extract remaining lines as description
-          DESCRIPTION=$(echo "$MESSAGE" | tail -n +2)
-          if [ -z "$DESCRIPTION" ]; then DESCRIPTION=" "; fi
-          
-          # Escape newlines and special JSON characters for safe embed
-          DESCRIPTION_ESCAPED=$(echo "$DESCRIPTION" | python3 -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])")
-          
-          # Output to GitHub Actions
-          echo "title=$TITLE" >> $GITHUB_OUTPUT
-          echo "description=$DESCRIPTION_ESCAPED" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_EVENT_HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-
-      - name: Send Discord embed
+      - name: Discord notification
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: "THEY'RE ABOUT TO KNOW"
           DISCORD_AVATAR: "https://www.farawaymoon.com/wp-content/uploads/fancy-discord-github-commits-guide-cover.png"
-          DISCORD_EMBEDS: ${{ toJson([{
-            "title": steps.split_commit.outputs.title,
-            "description": steps.split_commit.outputs.description,
-            "color": 5814783
-          }]) }}
+          DISCORD_EMBEDS: '[{"title": "WHO THEY''RE DEALING WITH", "description": {{ commit.description }}, "color": 5814783}]'
         with:
           args: ""
