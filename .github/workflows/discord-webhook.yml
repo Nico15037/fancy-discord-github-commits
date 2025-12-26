@@ -12,6 +12,7 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           username: "shot in the dark"
+          avatar_url: "https://www.farawaymoon.com/wp-content/uploads/faraway-moon-logo.png"
           embed: '{
             "title": "{{ commit.title }}",
             "description": "{{ commit.description }}",
