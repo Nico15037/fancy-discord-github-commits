@@ -1,18 +1,37 @@
 name: Discord Webhook Workflow
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   test-webhook:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send Discord Test Message
+      - name: Split commit message
+        id: split_commit
+        run: |
+          # Get the full commit message
+          MESSAGE="${GITHUB_EVENT_HEAD_COMMIT_MESSAGE}"
+          # First line = title
+          TITLE=$(echo "$MESSAGE" | head -n1)
+          # Remaining lines = description
+          DESCRIPTION=$(echo "$MESSAGE" | tail -n +2)
+          # If description is empty, provide a space to avoid empty field
+          if [ -z "$DESCRIPTION" ]; then DESCRIPTION=" "; fi
+          # Set outputs
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+          echo "description=$DESCRIPTION" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_EVENT_HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+
+      - name: Send Discord Embed
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           username: "Yogurtname"
-          avatar-url: "https://www.farawaymoon.com/wp-content/uploads/fancy-discord-github-commits-guide-cover.png"
-          embed-title: "${{ github.event.head_commit.message }}"
-          embed-description: "${{ github.event.head_commit.message }}"
+          avatar-url: "https://www.farawaymoon.com/wp-content/uploads/sideshow-logo.png"
+          embed-title: ${{ steps.split_commit.outputs.title }}
+          embed-description: ${{ steps.split_commit.outputs.description }}
           embed-color: ${{ secrets.EMBED_COLOR }}
