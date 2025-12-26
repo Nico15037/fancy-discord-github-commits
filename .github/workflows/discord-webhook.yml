@@ -1,4 +1,4 @@
-name: Discord Test Webhook
+name: Discord Webhook Workflow
 
 on: [push]
 
@@ -11,9 +11,9 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          username: "Yonsernayme"
+          username: "Yogurtname"
           avatar-url: "https://www.farawaymoon.com/wp-content/uploads/sideshow-logo.png"
-          embed-title: "crawlingtitle"
-          embed-description: "innnndescmyskinnnn"
-          embed-color: 5814783
-          embed-timestamp: "2025-12-25T00:00:00Z"
+          embed-title: "{{ commit.title }}"
+          embed-description: "{{ commit.description }}"
+          embed-color: ${{ secrets.EMBED_COLOR }}
+          embed-timestamp: "{{ commit.timestamp }}"
