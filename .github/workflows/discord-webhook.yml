@@ -13,6 +13,6 @@ jobs:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           username: "Yogurtname"
           avatar-url: "https://www.farawaymoon.com/wp-content/uploads/fancy-discord-github-commits-guide-cover.png"
-          embed-title: "{{ github.event.head_commit.message }}"
-          embed-description: "{{ github.event.head_commit.message }}"
+          embed-title: "${{ github.event.head_commit.message }}"
+          embed-description: "${{ github.event.head_commit.message }}"
           embed-color: ${{ secrets.EMBED_COLOR }}
