@@ -1,4 +1,5 @@
 name: Discord Webhook Workflow
+
 on:
   push:
     branches: [ main ]
@@ -6,25 +7,33 @@ on:
 jobs:
   postcommitmessage:
     runs-on: ubuntu-latest
+
     steps:
+      - uses: actions/checkout@v2
+
       - name: Discord Commits
-        uses: Sniddl/discord-commits@v1.3
+        uses: tsickert/discord-webhook@v7.0.0
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+
           username: "shot in the dark"
-          avatar_url: "https://www.farawaymoon.com/wp-content/uploads/faraway-moon-logo.png"
-          embed: '{
-            "title": "{{ commit.title }}",
-            "description": "{{ commit.description }}",
-            "url": "{{ commit.url }}",
-            "color": "${{ secrets.EMBED_COLOR }}",
-            "author": {
-              "name": "{{ commit.author.username }}",
-              "url": "https://github.com/{{ commit.author.username }}",
-              "icon_url": "https://github.com/{{ commit.author.username }}.png"
-            },
-            "timestamp": "{{ commit.timestamp }}",
-            "thumbnail": {
-            "url": "${{ secrets.EMBED_ICON }}"
-            }
-            }'
+          avatar-url: "https://www.farawaymoon.com/wp-content/uploads/faraway-moon-logo.png"
+
+          embeds: |
+            [
+              {
+                "title": "New commit pushed",
+                "description": "${{ github.event.head_commit.message }}",
+                "url": "https://github.com/${{ github.repository }}/commit/${{ github.sha }}",
+                "color": 5814783,
+                "author": {
+                  "name": "${{ github.event.head_commit.author.username }}",
+                  "url": "https://github.com/${{ github.event.head_commit.author.username }}",
+                  "icon_url": "https://github.com/${{ github.event.head_commit.author.username }}.png"
+                },
+                "timestamp": "${{ github.event.head_commit.timestamp }}",
+                "thumbnail": {
+                  "url": "${{ secrets.EMBED_ICON }}"
+                }
+              }
+            ]
