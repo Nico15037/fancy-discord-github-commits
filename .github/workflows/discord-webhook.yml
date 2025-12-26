@@ -11,14 +11,9 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          username: "paws will this work"
-          avatar-url: "https://www.farawaymoon.com/wp-content/uploads/space-trip-logo.png"
-          embeds: |
-            [
-              {
-                "title": "Hello Discord",
-                "description": "This is a basic hardcoded embed.",
-                "color": 5814783,
-                "timestamp": "2025-12-25T00:00:00Z"
-              }
-            ]
+          username: "Yonsernayme"
+          avatar-url: "https://www.farawaymoon.com/wp-content/uploads/sideshow-logo.png"
+          embed-title: "crawlingtitle"
+          embed-description: "innnndescmyskinnnn"
+          embed-color: 5814783
+          embed-timestamp: "2025-12-25T00:00:00Z"
