@@ -13,7 +13,7 @@ jobs:
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_USERNAME: "once I get up there"
-          DISCORD_AVATAR: "https://www.farawaymoon.com/wp-content/uploads/sideshow-logo.png"
+          DISCORD_USERNAME: "THEY'RE ABOUT TO KNOW"
+          DISCORD_AVATAR: "https://www.farawaymoon.com/wp-content/uploads/fancy-discord-github-commits-guide-cover.png"
         with:
-          args: "you will fuck it up"
+          args: "WHO THEY'RE DEALING WITH"
