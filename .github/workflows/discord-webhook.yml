@@ -16,15 +16,9 @@ jobs:
           DISCORD_USERNAME: "THEY'RE ABOUT TO KNOW"
           DISCORD_AVATAR: "https://www.farawaymoon.com/wp-content/uploads/fancy-discord-github-commits-guide-cover.png"
           DISCORD_EMBEDS: ${{ toJson([{
-            "title": "Commit Pushed",
+            "title": "give up haggling with fate, friend",
             "description": "${{ github.event.head_commit.message }}",
-            "color": ${{ secrets.EMBED_COLOR }},
-            "author": {
-              "name": "${{ github.event.head_commit.author.username }}",
-              "icon_url": "https://github.com/${{ github.event.head_commit.author.username }}.png"
-            },
-            "url": "https://github.com/${{ github.repository }}/commit/${{ github.sha }}",
-            "timestamp": "${{ github.event.head_commit.timestamp }}"
+            "color": ${{ secrets.EMBED_COLOR }}
           }]) }}
         with:
           args: ""
