@@ -15,6 +15,16 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: "THEY'RE ABOUT TO KNOW"
           DISCORD_AVATAR: "https://www.farawaymoon.com/wp-content/uploads/fancy-discord-github-commits-guide-cover.png"
-          DISCORD_EMBEDS: '[{"title": "WHO THEY''RE DEALING WITH", "description": "BIGGERING {{ EVENT_PAYLOAD.repository.full_name }}", "color": 5814783}]'
+          DISCORD_EMBEDS: ${{ toJson([{
+            "title": "Commit Pushed",
+            "description": "${{ github.event.head_commit.message }}",
+            "color": ${{ secrets.EMBED_COLOR }},
+            "author": {
+              "name": "${{ github.event.head_commit.author.username }}",
+              "icon_url": "https://github.com/${{ github.event.head_commit.author.username }}.png"
+            },
+            "url": "https://github.com/${{ github.repository }}/commit/${{ github.sha }}",
+            "timestamp": "${{ github.event.head_commit.timestamp }}"
+          }]) }}
         with:
           args: ""
