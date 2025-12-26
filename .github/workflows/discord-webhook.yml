@@ -10,7 +10,7 @@ jobs:
       - name: Discord Commits
         uses: Nico15037/discord-commits@main
         with:
-          username: "whether you wonder"
+          username: "do I want to die"
           avatar_url: "https://www.farawaymoon.com/wp-content/uploads/spirit-pawns-cover-dx.png"
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           embed: '{
