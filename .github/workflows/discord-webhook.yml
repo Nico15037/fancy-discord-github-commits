@@ -1,24 +1,29 @@
 name: Discord Webhook Workflow
-
 on:
   push:
     branches: [ main ]
 
 jobs:
-  test-webhook:
+  postcommitmessage:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Discord notification
-        uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_USERNAME: "THEY'RE ABOUT TO KNOW"
-          DISCORD_AVATAR: "https://www.farawaymoon.com/wp-content/uploads/fancy-discord-github-commits-guide-cover.png"
-          DISCORD_EMBEDS: ${{ toJson([{
-            "title": "give up haggling with fate, friend",
-            "description": "${{ github.event.head_commit.message }}",
-            "color": ${{ secrets.EMBED_COLOR }}
-          }]) }}
+      - name: Discord Commits
+        uses: Nico15037/discord-commits@main
         with:
-          args: ""
+          username: "SINCE YOU'VE BEEN GONE"
+          avatar_url: "https://www.farawaymoon.com/wp-content/uploads/spirit-pawns-cover-dx.png"
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          embed: '{
+            "title": "{{ commit.title }}",
+            "description": "{{ commit.description }}",
+            "url": "{{ commit.url }}",
+            "color": "${{ secrets.EMBED_COLOR }}",
+            "author": {
+              "name": "{{ commit.author.username }}",
+              "url": "https://github.com/{{ commit.author.username }}",
+              "icon_url": "https://github.com/{{ commit.author.username }}.png"
+            },
+            "timestamp": "{{ commit.timestamp }}",
+            "thumbnail": {
+            "url": "${{ secrets.EMBED_ICON }}"
+            }}'
