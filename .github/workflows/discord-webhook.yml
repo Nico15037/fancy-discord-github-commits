@@ -9,23 +9,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Split commit message
+      - name: Split commit message safely
         id: split_commit
         run: |
+          # Get full commit message
           MESSAGE="${GITHUB_EVENT_HEAD_COMMIT_MESSAGE}"
-          # First line = title
+          
+          # Extract first line as title
           TITLE=$(echo "$MESSAGE" | head -n1)
-          # Rest of the message = description
+          
+          # Extract remaining lines as description
           DESCRIPTION=$(echo "$MESSAGE" | tail -n +2)
           if [ -z "$DESCRIPTION" ]; then DESCRIPTION=" "; fi
-          # Escape newlines for JSON
-          DESCRIPTION_ESCAPED="${DESCRIPTION//$'\n'/\\n}"
+          
+          # Escape newlines and special JSON characters for safe embed
+          DESCRIPTION_ESCAPED=$(echo "$DESCRIPTION" | python3 -c "import json,sys; print(json.dumps(sys.stdin.read())[1:-1])")
+          
+          # Output to GitHub Actions
           echo "title=$TITLE" >> $GITHUB_OUTPUT
           echo "description=$DESCRIPTION_ESCAPED" >> $GITHUB_OUTPUT
         env:
           GITHUB_EVENT_HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
 
-      - name: Discord notification with dynamic embed
+      - name: Send Discord embed
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
