@@ -15,6 +15,6 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: "THEY'RE ABOUT TO KNOW"
           DISCORD_AVATAR: "https://www.farawaymoon.com/wp-content/uploads/fancy-discord-github-commits-guide-cover.png"
-          DISCORD_EMBEDS: '[{"title": "WHO THEY''RE DEALING WITH", "description": {{ commit.description }}, "color": 5814783}]'
+          DISCORD_EMBEDS: '[{"title": "WHO THEY''RE DEALING WITH", "description": "IS WIIIINN", "color": 5814783}]'
         with:
-          args: ""
+          args: "principle of nature {{ EVENT_PAYLOAD.repository.full_name }}"
