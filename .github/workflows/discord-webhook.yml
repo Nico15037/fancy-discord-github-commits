@@ -16,4 +16,3 @@ jobs:
           embed-title: "{{ github.event.head_commit.message }}"
           embed-description: "{{ github.event.head_commit.message }}"
           embed-color: ${{ secrets.EMBED_COLOR }}
-          embed-timestamp: "{{ github.event.head_commit.timestamp }}"
