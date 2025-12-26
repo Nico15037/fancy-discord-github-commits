@@ -11,6 +11,6 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          username: "gayming"
-          avatar-url: "https://www.farawaymoon.com/wp-content/uploads/faraway-moon-logo.png"
-          content: "loud sigh"
+          username: "paws that actually worked"
+          avatar-url: "https://www.farawaymoon.com/wp-content/uploads/space-trip-logo.png"
+          content: "yo."
