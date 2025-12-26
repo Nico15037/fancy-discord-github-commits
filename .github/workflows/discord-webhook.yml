@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: Discord Commits
         uses: Nico15037/discord-commits@main
+        env:
+          username: "dobut"
+          avatar_url: "https://www.farawaymoon.com/wp-content/uploads/spirit-pawns-cover-dx.png"
         with:
           username: "SINCE YOU'VE BEEN GONE"
           avatar_url: "https://www.farawaymoon.com/wp-content/uploads/spirit-pawns-cover-dx.png"
