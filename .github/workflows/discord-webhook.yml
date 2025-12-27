@@ -11,7 +11,7 @@ jobs:
         uses: Nico15037/discord-commits@main
         with:
           username: ${{ secrets.DISCORD_USERNAME }}
-          avatar_url: "https://www.farawaymoon.com/wp-content/uploads/stranded-starship-cover-dx.png"
+          avatar_url: ${{ secrets.DISCORD_AVATAR }}
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           embed: '{
             "title": "{{ commit.title }}",
