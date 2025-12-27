@@ -10,7 +10,7 @@ jobs:
       - name: Discord Commits
         uses: Nico15037/discord-commits@main
         with:
-          username: "paws wait this actyalltg worksjhaug fdshkjf"
+          username: ${{ secrets.DISCORD_USERNAME }}
           avatar_url: "https://www.farawaymoon.com/wp-content/uploads/stranded-starship-cover-dx.png"
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           embed: '{
