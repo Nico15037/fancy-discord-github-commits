@@ -7,7 +7,7 @@ jobs:
   postcommitmessage:
     runs-on: ubuntu-latest
     steps:
-      - name: Discord Commits2
+      - name: Discord Commits
         uses: Nico15037/discord-commits@main
         with:
           username: ${{ secrets.DISCORD_USERNAME }}
